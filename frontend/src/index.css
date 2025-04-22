@@ -3,6 +3,9 @@
 
 a.active hr{
     display: block;
+    background-color: black;
+    color: white;
+    
     
 }
 *{
@@ -13,4 +16,13 @@ a.active hr{
     font-weight: 300;
     font-style: normal;
   }
+
   
+@media (max-width:640px) {
+    a.active{
+        background-color: black;
+        color: white;
+
+    }
+    
+}
