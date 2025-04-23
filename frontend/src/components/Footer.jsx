@@ -3,6 +3,7 @@ import {assets} from './../assets/assets'
 
 const Footer = () => {
   return (
+    <div>
     <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] justify-between gap-14 mt-15 mb-15'>
         <div className='flex flex-col gap-2'>
             <img src={assets?.logo} alt="" className='w-32 ' />
@@ -27,6 +28,13 @@ const Footer = () => {
                 <li>umermunir@gmail.com</li>
                
             </ul>
+        </div>
+
+        
+    </div>
+    <div >
+            <hr className='text-gray-400'/>
+            <p className='text-xs text-gray-400 text-center py-5 mb-5'>Copyright2025@Bazm-e-Fashion-All Rights are Reserved</p>
         </div>
     </div>
   )

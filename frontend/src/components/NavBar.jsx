@@ -61,9 +61,11 @@ const NavBar = () => {
             <NavLink onClick={()=>setVisible(false)} className='border-b border-gray-400 py-4 pl-6' to={'/about'}>ABOUT</NavLink>
         </div>
       </div>
+      
 
       
     </div>
+    
   )
 }
 
