@@ -5,7 +5,7 @@ import ProductItem from './../components/ProductItem'
 import Title from './../components/Title'
 
 const Collection = () => {
-  const {products} =useContext(ShopContext);
+  const {products,search,showSearch} =useContext(ShopContext);
   const [showFilters,setShowFilters]=useState(false);
   const [filteredProducts,setFilteredProducts]=useState([]);
   const [category,setCategory]=useState([]);
@@ -31,9 +31,12 @@ const Collection = () => {
 
   const applyFilter=()=>{
     let productsCopy=products.slice();
+    if (showSearch && search){
+      productsCopy=productsCopy.filter(item=>item.name.toLowerCase().includes(search.toLowerCase()))
+    }
     if (category.length>0){
       productsCopy=productsCopy.filter(item=>category.includes(item.category))
-    }
+    }    
     if(subCategory.length>0){
       productsCopy=productsCopy.filter(item=>subCategory.includes(item.subCategory))
     }
@@ -61,7 +64,7 @@ const Collection = () => {
 
   useEffect(()=>{
    applyFilter()
-  },[category,subCategory])
+  },[category,subCategory,search,showSearch])
 
   useEffect(()=>{
    sortProducts()
@@ -126,9 +129,11 @@ const Collection = () => {
           
         </div>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-5 mb-5'>
-    {filteredProducts.map((item,index)=>(
+    {filteredProducts.length>0?filteredProducts.map((item,index)=>(
         <ProductItem key={index} id={item?._id} name={item?.name} image={item?.image} price={item?.price}/>
-    ))
+        
+    )):
+    <div className='mt-5'><p className='text-lg text-gray-500'>No Items to show</p></div>
 
     }
     </div>
