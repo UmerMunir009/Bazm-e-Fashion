@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {ShopContext} from './../context/ShopContext'
 import { assets } from '../assets/assets';
+import Title from './../components/Title';
+import RelatedProducts from '../components/RelatedProducts';
+import { toast } from 'react-toastify';
 
 const Product = () => {
   const { productid } = useParams(); // Extract productid from the URL
-  const {products,currency} =useContext(ShopContext)
+  const {products,currency,addToCart} =useContext(ShopContext)
   const [productData,setProductData]=useState(false);
   const [image,setImage]=useState('');
   const [selectedSize,setSelectedSize]=useState('');
@@ -19,6 +22,15 @@ const Product = () => {
       }
      })
   
+  }
+  const handleAddToCartClick=()=>{
+    if(selectedSize !== ''){
+   addToCart(productData._id,selectedSize)
+    toast.success("Item added to CART");
+    }
+    else{
+      toast.error('Please select size first')
+    }
   }
 
   useEffect(()=>{
@@ -70,7 +82,7 @@ const Product = () => {
               }
               
             </div>
-            <button className='bg-black  text-white  max-w-1/3 p-2 py-4 active:bg-gray-600 cursor-pointer rounded text-xs'>ADD TO CART</button>
+            <button  onClick={handleAddToCartClick} className='bg-black  text-white  max-w-1/3 p-2 py-4 active:bg-gray-600 cursor-pointer rounded text-xs'>ADD TO CART</button>
           </div>
             <hr className='text-gray-400 mt-3' />
             <div className='text-xs mt-8 flex flex-col gap-1 text-gray-500'>
@@ -94,6 +106,10 @@ const Product = () => {
           <p>An e-commerce website is an online platform that facilitates the buying and sel An e-commerce website is an online platform that facilitates the buying and sel An e-commerce website is an online platform that facilitates the buying and sel An e-commerce website is an online platform that facilitates the buying and sel An e-commerce website is an online platform that facilitates the buying and sel </p>
           <p>E-commerce websites typically display products or services along with detailed An e-commerce website is an online platform that facilitates the buying and sel An e-commerce website is an online platform that facilitates the buying and sel </p>
        </div>
+     </div>
+     <div className='mt-10'>
+      <Title  text1={'RELATED'} text2={'PRODUCTS'}/>
+      <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
      </div>
 
     </div>
