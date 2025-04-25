@@ -1,6 +1,7 @@
 import React from 'react'
 
 const NewsLetterBox = () => {
+
     const onSubmitHandler=(event)=>{
         event.preventDefault()
 
@@ -16,7 +17,7 @@ const NewsLetterBox = () => {
     placeholder='Enter your E-mail' 
     required
   />
-  <button type='submit' className='bg-black text-white text-xs px-10 py-3'>
+  <button type='submit' className='bg-black cursor-pointer text-white text-xs px-10 py-3'>
     SUBSCRIBE
   </button>
 </form>
