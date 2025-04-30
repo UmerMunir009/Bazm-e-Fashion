@@ -13,7 +13,7 @@ const Login = () => {
         <hr className='border-none h-[1.7px] w-14 bg-gray-800' />
       </div>
       {currentState === 'Login'?'':<input className='w-full border p-2 outline-none border-gray-400 text-sm' type="text" required placeholder='Name' />}
-      <input className='w-full border p-2 outline-none border-gray-400 text-sm' required type="email" placeholder='E-mail' />
+      <input className='w-full border p-2 outline-none border-gray-400 text-sm' required type="email" placeholder='E-Mail' />
       <input className='w-full border p-2 outline-none border-gray-400 text-sm' required type="password" placeholder='Password' />
        <div className='flex justify-between w-full items-center'>
    
