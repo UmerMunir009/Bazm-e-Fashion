@@ -9,6 +9,6 @@ import mongoose from "mongoose";
  
         await mongoose.connect(`${process.env.MONGODB_URI}/e-commerce`)
 
-    }
+    } 
 
-    export default connectDB
+    export default connectDB 
