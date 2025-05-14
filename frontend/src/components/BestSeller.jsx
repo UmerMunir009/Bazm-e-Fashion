@@ -10,7 +10,7 @@ const BestSeller = () => {
         const result=products.filter(item=> item.bestseller===true);
         setBestSellers(result)
          
-     }, [])
+     }, [products])
   return (
     <div>
         <div className='text-center text-lg  pt-5 sm:text-2xl'>

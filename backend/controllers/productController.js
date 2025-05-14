@@ -2,17 +2,17 @@ import {v2 as cloudinary} from "cloudinary"
 import productModel from "./../models/productModel.js"
     const addProduct = async (req, res) => {
         try {
-             const { name, price, description, category,sizes,subCategory, bestSeller}=req.body
+             const { name, price, description, category,sizes,subCategory, bestseller}=req.body
              const image1=req.files.image1 && req.files.image1[0]
              const image2=req.files.image2 && req.files.image2[0]
              const image3=req.files.image3 && req.files.image3[0]
              const image4=req.files.image4 && req.files.image4[0]
 
              //Now upload images to clodinary to get imageURLS
-             const images=[image1,image2,image3,image4].filter((img) => img !== undefined)
-             console.log(images)
+             const image=[image1,image2,image3,image4].filter((img) => img !== undefined)
+             console.log(image)
              const imagesUrl=await Promise.all(
-                images.map(async (img) => {
+                image.map(async (img) => {
                     const result=await cloudinary.uploader.upload(img.path,{resource_type: "image"})
                     return result.secure_url
                 })
@@ -22,11 +22,11 @@ import productModel from "./../models/productModel.js"
                 name,
                 description,
                 price:Number(price),
-                images: imagesUrl,
+                image: imagesUrl,
                 category,
                 subCategory,
                 sizes:JSON.parse(sizes),//convert string to array
-                bestSeller:bestSeller==="true"? true : false,
+                bestseller:bestseller==="true"? true : false,
                 date: Date.now()
              }
 

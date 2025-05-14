@@ -8,7 +8,7 @@ const LatestCollection = () => {
     const [latestProducts,setLatestProducts]=useState([]);
     useEffect(()=>{
       setLatestProducts(products.slice(0,12))
-  }, [])
+  }, [products])
   return (
     <div>
     <div className='text-center text-lg  pt-5 sm:text-2xl'>

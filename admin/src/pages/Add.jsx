@@ -14,7 +14,7 @@ const Add = ({ token }) => {
   const [image4, setImage4] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('15');
+  const [price, setPrice] = useState('0');
   const [category, setCategory] = useState('Men');
   const [subCategory, setsubCategory] = useState('Topwear');
   const [sizes, setSizes] = useState(['S'])
@@ -35,7 +35,7 @@ const Add = ({ token }) => {
         formData.append("category", category);
         formData.append("subCategory", subCategory);
         formData.append("sizes", JSON.stringify(sizes)); // array->string bcoz array cant be passes into form data
-        formData.append("bestSeller", bestSeller);
+        formData.append("bestseller", bestSeller);
         if (image1) formData.append("image1", image1);
         if (image2) formData.append("image2", image2);
         if (image3) formData.append("image3", image3);
@@ -48,7 +48,17 @@ const Add = ({ token }) => {
         if(response.data.success){
 
           toast.success('Product uploaded.')
+
         }
+        setImage1(false)
+        setImage2(false)
+        setImage3(false)
+        setImage4(false)
+        setBestSeller(false)
+        setName('');
+        setDescription('')
+        setPrice('0')
+        setSizes(['S'])
 
 
       } catch (error) {
