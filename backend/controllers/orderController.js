@@ -33,3 +33,5 @@ const userOrders= async(req,res)=>{
 const updateStatus= async(req,res)=>{
 
 }
+
+export {placeOrderCOD,placeOrderRazorpay,placeOrderStripe,updateStatus,userOrders,allOrdersAdmin}
