@@ -14,6 +14,7 @@ const Cart = () => {
   
 
   useEffect(()=>{
+    if(products.length>0){
     const tempData = [];
     for (const id in cartItems) {
        for (const sizee in cartItems[id]) {
@@ -27,8 +28,9 @@ const Cart = () => {
   }
 }
 setCartData(tempData);
+    }
 
-},[cartItems])
+},[cartItems,products])
 
   
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
 import axios from 'axios'
@@ -9,7 +9,7 @@ const Login = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  const [loader,setLoader]=useState(false);
+  const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate()
   const { token, setToken, backendUrl } = useContext(ShopContext)
@@ -25,6 +25,7 @@ const Login = () => {
           console.log(response.data.token)
           setToken(response.data.token)
           localStorage.setItem('token', response.data.token)
+
         }
         else {
           toast.error(response.data.message)
@@ -35,6 +36,7 @@ const Login = () => {
         const response = await axios.post(backendUrl + "/api/user/login", { email, password })
         setLoader(false)
         if (response.data.success) {
+          console.log(response.data.token)
           setToken(response.data.token)
           localStorage.setItem('token', response.data.token)
         }
@@ -45,12 +47,16 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-      resizeBy.json({ success: false, })
-
+      toast.error(error.message)
+    }
+  }
+  useEffect(() => {
+    if (token) {
+      navigate('/')
     }
 
+  }, [token])
 
-  }
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col w-[90%] sm:max-w-100 items-center mt-20 m-auto gap-2 '>
       <div className='inline-flex items-center gap-2 mb-5'>
@@ -69,7 +75,7 @@ const Login = () => {
 
       </div>
       <div >
-        {currentState === 'Login' ? <button className='bg-black min-w-50 cursor-pointer rounded px-2 py-2 text-white  text-center'>{loader=== true?'Loading...':'Sign In'}</button> : <button className='bg-black min-w-50 cursor-pointer rounded px-2 py-2 text-white  text-center'>{loader=== true?'Loading...':'Sign Up'}</button>}
+        {currentState === 'Login' ? <button className='bg-black min-w-50 cursor-pointer rounded px-2 py-2 text-white  text-center'>{loader === true ? 'Loading...' : 'Sign In'}</button> : <button className='bg-black min-w-50 cursor-pointer rounded px-2 py-2 text-white  text-center'>{loader === true ? 'Loading...' : 'Sign Up'}</button>}
       </div>
     </form>
   )

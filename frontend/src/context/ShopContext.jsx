@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
 
 export const ShopContext = createContext();
@@ -14,7 +15,7 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [products,setProducts]=useState([]);
-  const [token,setToken]=useState('')
+  const [token,setToken]=useState(localStorage.getItem('token')? localStorage.getItem('token') : '')
 
 
   const addToCart = async (itemId, size) => {
@@ -31,9 +32,20 @@ const ShopContextProvider = (props) => {
     }
 
     setCartItems(cartData);
+
+    if(token){
+      try {
+        await axios.post(backendUrl + '/api/cart/add',{itemId,size},{headers:{token}})
+        
+      } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+        
+      }
+    }
   };
-
-
+  
+  
   const countCartItems = () => {
     let total = 0;
     for (const itemId in cartItems) {
@@ -43,12 +55,23 @@ const ShopContextProvider = (props) => {
     }
     return total
   };
-
+  
   const updateCartItems = async (itemId, size, quantity) => {
     let copy = structuredClone(cartItems);
     copy[itemId][size] = quantity;
     setCartItems(copy);
-    //   countCartItems();
+    
+    if(token){
+      try {
+        await axios.post(backendUrl + '/api/cart/update',{itemId,size,quantity},{headers:{token}})
+        
+      } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+        
+      }
+    }
+    
   }
 
   const getTotalBillofCart = () => {
@@ -67,6 +90,8 @@ const ShopContextProvider = (props) => {
     }
     return totalAmount;
   }
+
+
   const fetchProducts = async () => {
     try {
       const response = await axios.get(backendUrl + "/api/product/list");
@@ -82,11 +107,27 @@ const ShopContextProvider = (props) => {
     } catch (error) {
       console.log(error)
     }
-
-
   }
+
+   const fetchCartItems= async (token)=>{
+     try {
+      const response = await axios.post(backendUrl + "/api/cart/get",{},{headers:{token}});
+      
+
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
+   }
+
   useEffect(() => {
     fetchProducts();
+    if(localStorage.getItem('token')){
+      fetchCartItems(token)
+    }
   }, [])
 
 
@@ -96,7 +137,7 @@ const ShopContextProvider = (props) => {
   const value = {
     products, currency, delivery_fee, search, setSearch, showSearch, setShowSearch,
     cartItems, addToCart, countCartItems, updateCartItems, getTotalBillofCart, backendUrl,
-    token,setToken
+    token,setToken,setCartItems,cartItems
   }
 
   return (
