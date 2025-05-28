@@ -70,18 +70,33 @@ const PlaceOrder = () => {
           break;
 
         case 'stripe':
+          const response2=await axios.post(backendUrl + '/api/order/stripe',orderData,{headers:{token}})
+          if(response2.data.success){
+            setCartItems({})
+            navigate('/orders')
+          }
+          else{
+            toast.error(response2.data.message)
+          }
+          break;
+        case 'razorpay':
+          const response3=await axios.post(backendUrl + '/api/order/razorpay',orderData,{headers:{token}})
+          if(response3.data.success){
+            setCartItems({})
+            navigate('/orders')
+          }
+          else{
+            toast.error(response3.data.message)
+          }
           break;
 
         default:
-          break
-
+          break;
 
       }
-
-
-
     } catch (error) {
-
+           console.log(error)
+      toast.error(error.message)
     }
   }
 

@@ -19,7 +19,7 @@ const placeOrderCOD = async (req, res) => {
         const order = new orderModel(orderData);
         await order.save()
 
-        await userModel.findByIdAndDelete(userId, { cartData: {} })
+        await userModel.findByIdAndUpdate(userId, { cartData: {} })
 
         res.json({ success: true, message: "Order placed" })
 
