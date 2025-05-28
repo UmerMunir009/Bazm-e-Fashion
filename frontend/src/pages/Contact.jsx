@@ -9,7 +9,7 @@ const Contact = () => {
   return (
     <div>
       <div className='text-2xl border-t border-gray-300 pt-10 text-center'>
-      <Title text1={'ABOUT'} text2={'US'}/>
+      <Title text1={'CONTACT'} text2={'US'}/>
       </div>
       <div className='flex flex-col md:flex-row gap-7 justify-center'>
         <img  className='w-full md:max-w-[400px] rounded' src={assets?.contact_img} alt="" />
