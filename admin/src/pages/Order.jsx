@@ -10,6 +10,7 @@ import { assets } from '../assets/assets'
 const Order = ({ token }) => {
 
   const [ordersData, setOrdersData] = useState([]);
+  
 
   const fetchOrders = async () => {
     try {
@@ -63,7 +64,7 @@ const Order = ({ token }) => {
           {
             ordersData.map((order, index) => (
               <div key={index} className='mb-7 flex flex-col sm:flex-row gap-2 border-gray-300 p-2 border-1 items-start'>
-                <img className='w-12' src={order?.items[0].image[0]} alt="" />
+                <img className='w-12' src={order?.items[0]?.image[0]} alt="" />
                 <div className='grid gap-4 grid-cols-1 lg:grid-cols-[3fr_1fr_1fr_1fr]'>
                   <div>
                     {
